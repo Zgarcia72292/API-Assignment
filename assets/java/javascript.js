@@ -1,54 +1,114 @@
 var topics = ["Games", "Anime", "Sports", "Music", "Movies"];
 
-//created an array to store my topics in//
-
+//created an array to store my topics in, and stored it in a fucntion to be called later//
+function displayArray(){
 for (var i = 0; i < topics.length; i++){
-    $("#aBtn").append('<button id="gif-btn" data-name="' + topics[i] + '">'+topics[i]);
+    $("#aBtn").append('<button class="gif-btn" data-name="' + topics[i] + '">'+topics[i]);
 }
+};
+
+displayArray();
+
+
 
 //created a for loop that will convert anything in the array into buttons and append them to the page
 //gave each button an id to call later and a data-name type consistent with the value of the corresponding
 //item in the array// 
 
 
-// $("#input-btn").on("click", function (event){
-//     event.preventDefault();
-//     $("#user-input")
-
-//     topics = $("<button>");
-//      var myJSON = JSON.stringify(toDoArray);
-//      $("#to-do").html(myJSON);
-//      function array(){
-//      toDoArray.push(toDoTask);
-   
-//     };
-
-//     array();
-// })
+$("#input-btn").on("click", function (event){
+    event.preventDefault();
+    $("#aBtn").empty();
+   topics.push($("#user-input").val());
+  
+   //this code pushes whatever value is in the form field that the user has inputted into the array, clears the button list,
+   //then re-runs the for loop which will now display any new array items as buttons// 
 
 
+    displayArray()
 
+});
 
+//put ajax in a function??//
 
-
-
-
-
-
-// $("gif-btn").on("click", function() {
-   
-//     var gifName = $(this).val("data-name");
-
-   
-//     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-//       gifName + "&api_key=dc6zaTOxFJmzC&limit=1";
-
-//       $.ajax({
+// function APIbtn (){
+//     $.ajax({
 //         url: queryURL,
 //         method: "GET"
-//       })
-//         // After the data comes back from the API
-//         .then(function(response) {
-//           // Storing an array of results in the results variable
-//           var results = response.data;
+//         })
+//         .then(function(response){
+//             console.log(queryURL);
+//             console.log(response);
+//                 //Gif API data appears, need to push to page
+//                 //NEW DEVELOPMENT - Only first button works
+//             var results = response.data;
+//             for(var i=0;i<results.length;i++);
+//             var p = $("<p>").text("Rating: " + results.rating);
+        
+        
+//               })
+// }
+
+
+//creating an on.click for the new buttons that show up to pull data from the api//
+//used week 6 activity 13 for reference//
+
+$(".gif-btn").on("click", function() {
+   
+    var gifName = $(this).val("data-name");
+   
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+          gifName + "&api_key=dc6zaTOxFJmzC&limit=10";
     
+    $.ajax({
+     url: queryURL,
+     method: "GET"
+    }).then(function(response){
+       
+//so far the code works and pulls data from the api, now i have to figure out how to get it to display to page//
+//in the data we are accessing from the api page there is an array called 'data' that has all relevent properties, so
+//we will save the array in a variable 'results'
+                   
+        var results = response.data;
+
+//the for loop will iterate through the 'data' arrays for all the results that show up. It will then access the 'rating'
+//properties for each item in the array. 
+        for(var i=0;i<results.length;i++){
+        
+           
+              
+                var gifDiv = $("<div>");
+              
+                var rating = results[i].rating;
+              
+                var p =$("<p>").text("Rating: " + rating);
+              
+                var gifImage = $("<img id='picture'>");
+              
+                gifImage.attr("src", results[i].images.fixed_height_still.url);
+              
+                gifDiv.append(p);
+              
+                gifDiv.append(gifImage);
+              
+                $("#gif-area").prepend(gifDiv);
+
+                $(".picture").on("click", function(){
+                    $(".picture").html(results[i].images.fixed_height.url);
+                   
+              
+                  })
+            
+        }
+            
+    })
+});
+
+
+
+
+//THINGS TO FIX//
+
+//Ajax stops working after new buttons are stored into the array//
+//giphs appear but arent taking data from user input- getting random gifs//
+//need to create a working on.click button to turn gifs into pics and visa-versa// 
