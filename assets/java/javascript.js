@@ -55,7 +55,7 @@ $("#input-btn").on("click", function (event){
 
 $(".gif-btn").on("click", function() {
    
-    var gifName = $(this).val("data-name");
+    var gifName = $(this).attr("data-name");
    
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
           gifName + "&api_key=dc6zaTOxFJmzC&limit=10";
@@ -83,25 +83,56 @@ $(".gif-btn").on("click", function() {
               
                 var p =$("<p>").text("Rating: " + rating);
               
-                var gifImage = $("<img id='picture'>");
+                // var gifImage = $('<img class="picture" data-type="'+results[i].images.fixed_height_still.url+'">');
+                var gifImage = $('<img>');
+              
+                gifImage.addClass("picture");
               
                 gifImage.attr("src", results[i].images.fixed_height_still.url);
               
+                gifImage.attr("data-still", results[i].images.fixed_height_still.url);
+              
+                gifImage.attr("data-animate", results[i].images.fixed_height.url);
+              
+                gifImage.attr("data-state", "still");
+                
                 gifDiv.append(p);
               
                 gifDiv.append(gifImage);
               
                 $("#gif-area").prepend(gifDiv);
 
-                $(".picture").on("click", function(){
-                    $(".picture").html(results[i].images.fixed_height.url);
-                   
-              
-                  })
+//now this on.click function will change the data state, essentially the url, from the still version of the
+//image to the animated gif//
+
+//here i used the same principles from week 6 activity 15//
+                
+                $(".picture").on("click", function() {
+      
+                    var state = $(this).attr("data-state");
+      
+                    if (state === "still") {
             
+                        $(this).attr("src", $(this).attr("data-animate"));
+                       
+                        $(this).attr("data-state", "animate");
+                    
+                    } 
+                        
+                    else {
+                        
+                            $(this).attr("src", $(this).attr("data-still"));
+                        
+                            $(this).attr("data-state", "still");
+                    }
+      });
+
+               
         }
             
     })
+
+  
 });
 
 
@@ -110,5 +141,13 @@ $(".gif-btn").on("click", function() {
 //THINGS TO FIX//
 
 //Ajax stops working after new buttons are stored into the array//
-//giphs appear but arent taking data from user input- getting random gifs//
+//giphs appear but arent taking data from user input- getting random gifs// FIXED
+
+
+//FIXED//
+
+//giphs appear but arent taking data from user input- getting random gifs// 
+//was taking the .val instead of the .attr//
+
 //need to create a working on.click button to turn gifs into pics and visa-versa// 
+//used week 6 activity 15 to see what method they used to replace the url//
