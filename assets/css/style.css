@@ -1,3 +1,53 @@
-.picture {
+/* .picture {
     float: left;
+} */
+
+.imgDiv{
+    float: left;
+     min-width:100px; width: auto !important; width: 100px;
+     margin:10px;
+}
+
+body { 
+    background: url("../media/gravel.png");
+}
+
+#user-input{
+    width: 300px;
+}
+
+.btn{
+    
+    background-color: #4aaaa5;
+    border-color: #4aaaa5;
+    box-shadow: 2px 2px#0c0b0b ;
+    
+}
+
+.gif-btn{
+background-color: #4aaaa5;
+margin:5px;
+border-color: #4aaaa5;
+box-shadow: 2px 2px #0c0b0b;
+    
+}
+
+#textField {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.ratingText{
+    font-weight: bold;
+    font-size: 18px;
+
+}
+
+#aBtn{
+    margin-bottom: 20px;
+}
+
+#input-btn{
+    width: 100px;
+    font-size: 20px;
 }

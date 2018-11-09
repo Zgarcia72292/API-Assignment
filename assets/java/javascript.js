@@ -3,7 +3,7 @@ var topics = ["Games", "Anime", "Sports", "Music", "Movies"];
 //created an array to store my topics in, and stored it in a fucntion to be called later//
 function displayArray() {
     for (var i = 0; i < topics.length; i++) {
-        $("#aBtn").append('<button class="gif-btn" data-name="' + topics[i] + '">' + topics[i]);
+        $("#aBtn").append('<button class="gif-btn btn btn-primary" data-name="' + topics[i] + '">' + topics[i]);
     }
     //creating an on.click for the new buttons that show up to pull data from the api//
     //used week 6 activity 13 for reference//
@@ -32,11 +32,11 @@ function displayArray() {
     
     
     
-                var gifDiv = $("<div>");
+                var gifDiv = $("<div class='imgDiv'>");
     
                 var rating = results[i].rating;
     
-                var p = $("<p>").text("Rating: " + rating);
+                var p = $("<p class='ratingText'>").text("Rating: " + rating);
     
                 // var gifImage = $('<img class="picture" data-type="'+results[i].images.fixed_height_still.url+'">');
                 var gifImage = $('<img>');
@@ -51,9 +51,9 @@ function displayArray() {
     
                 gifImage.attr("data-state", "still");
     
-                gifDiv.append(p);
-    
                 gifDiv.append(gifImage);
+
+                gifDiv.append(p);
     
                 $("#gif-area").prepend(gifDiv);
     
