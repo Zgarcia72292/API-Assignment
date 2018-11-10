@@ -13,7 +13,7 @@ function displayArray() {
         var gifName = $(this).attr("data-name");
     
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-            gifName + "&api_key=dc6zaTOxFJmzC&limit=1";
+            gifName + "&api_key=dc6zaTOxFJmzC&limit=5";
     
         $.ajax({
             url: queryURL,
